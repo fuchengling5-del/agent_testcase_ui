@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "_buildId": "id_MC81OmFIVnBZMlhrdTVqbnFJdm5qckk2WWxkSmVnPT06MmM1YmIwNDU=",
+  "style": "default",
+  "_deployId": "id_MS81OmFIVnBZMlhrdTVqbnFJdm5qckk2WWxkSmVnPT06MmM1YmIwNDU=",
+  "rsc": true,
+  "_releaseId": "id_Mi81OmFIVnBZMlhrdTVqbnFJdm5qckk2WWxkSmVnPT06MmM1YmIwNDU=",
+  "tsx": true,
+  "_versionId": "id_My81OmFIVnBZMlhrdTVqbnFJdm5qckk2WWxkSmVnPT06MmM1YmIwNDU=",
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "src/app/globals.css",
+    "baseColor": "slate",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "_buildHash": "NC81OmFIVnBZMlhrdTVqbnFJdm5qckk2WWxkSmVnPT06MmM1YmIwNDU=",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  }
+}
