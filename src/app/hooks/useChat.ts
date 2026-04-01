@@ -70,7 +70,8 @@ export function useChat({
   const sendMessage = useCallback(
     (
       content: string,
-      contentBlocks?: ContentBlock.Multimodal.Data[]
+      contentBlocks?: ContentBlock.Multimodal.Data[],
+      enablePdfMultimodal?: boolean
     ) => {
       // Split blocks: images go into content array as image_url format (OpenAI-compatible),
       // PDFs go into additional_kwargs.attachments (backend parses them)
@@ -95,12 +96,20 @@ export function useChat({
             ] as Message["content"])
           : content;
 
+      const additional_kwargs: Record<string, any> = {};
+      if (pdfBlocks.length > 0) {
+        additional_kwargs.attachments = pdfBlocks;
+      }
+      if (enablePdfMultimodal !== undefined) {
+        additional_kwargs.ENABLE_PDF_MULTIMODAL = enablePdfMultimodal;
+      }
+
       const newMessage: Message = {
         id: uuidv4(),
         type: "human",
         content: messageContent,
-        ...(pdfBlocks.length > 0
-          ? { additional_kwargs: { attachments: pdfBlocks } }
+        ...(Object.keys(additional_kwargs).length > 0
+          ? { additional_kwargs }
           : {}),
       };
       stream.submit(

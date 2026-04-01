@@ -45,6 +45,7 @@ import { FilesPopover } from "@/app/components/TasksFilesSidebar";
 import { useFileUpload } from "@/app/hooks/useFileUpload";
 import { ContentBlocksPreview } from "@/app/components/ContentBlocksPreview";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 interface ChatInterfaceProps {
   assistant: Assistant | null;
@@ -79,6 +80,7 @@ const getStatusIcon = (status: TodoItem["status"], className?: string) => {
 
 export const ChatInterface = React.memo<ChatInterfaceProps>(({ assistant }) => {
   const [metaOpen, setMetaOpen] = useState<"tasks" | "files" | null>(null);
+  const [enablePdfMultimodal, setEnablePdfMultimodal] = useState(false);
   const tasksContainerRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -124,11 +126,11 @@ export const ChatInterface = React.memo<ChatInterfaceProps>(({ assistant }) => {
         submitDisabled
       )
         return;
-      sendMessage(messageText, contentBlocks);
+      sendMessage(messageText, contentBlocks, enablePdfMultimodal);
       setInput("");
       resetBlocks();
     },
-    [input, contentBlocks, isLoading, sendMessage, submitDisabled]
+    [input, contentBlocks, isLoading, sendMessage, submitDisabled, enablePdfMultimodal]
   );
 
   const handleKeyDown = useCallback(
@@ -569,6 +571,19 @@ export const ChatInterface = React.memo<ChatInterfaceProps>(({ assistant }) => {
                   accept="image/jpeg,image/png,image/gif,image/webp,application/pdf"
                   className="hidden"
                 />
+                <div className="ml-2 flex items-center gap-2">
+                  <Switch
+                    id="pdf-multimodal"
+                    checked={enablePdfMultimodal}
+                    onCheckedChange={setEnablePdfMultimodal}
+                  />
+                  <Label
+                    htmlFor="pdf-multimodal"
+                    className="cursor-pointer text-xs text-muted-foreground"
+                  >
+                    多模态
+                  </Label>
+                </div>
               </div>
               <div className="flex justify-end gap-2">
                 <Button
